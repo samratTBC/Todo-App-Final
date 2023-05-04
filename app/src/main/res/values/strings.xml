@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TodoAppFinal</string>
+    <string name="todoApp">ToDo App</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="when_no_todo_tv">Empty Todo. Add to Create</string>
 </resources>
