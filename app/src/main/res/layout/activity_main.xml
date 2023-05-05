@@ -6,21 +6,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/grey"
     tools:context=".MainActivity">
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/title_of_app"
         android:text="@string/todoApp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:textSize="24sp"
         android:textStyle="bold"/>
     <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/fragmentContainer_view"/>
+        android:layout_weight="1" />
 
 </LinearLayout>

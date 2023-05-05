@@ -8,12 +8,12 @@ public class Todo {
     private String todoTitle;
     private String todoDescription;
     private boolean completed;
-    private Date todoStartDate;
+    private String todoStartDate;
 
     public Todo() {
     }
 
-    public Todo(int id, String todoTitle, String todoDescription, boolean completed, Date todoStartDate) {
+    public Todo(int id, String todoTitle, String todoDescription, boolean completed, String todoStartDate) {
         this.id = id;
         this.todoTitle = todoTitle;
         this.todoDescription = todoDescription;
@@ -53,11 +53,11 @@ public class Todo {
         this.completed = completed;
     }
 
-    public Date getTodoStartDate() {
+    public String getTodoStartDate() {
         return todoStartDate;
     }
 
-    public void setTodoStartDate(Date todoStartDate) {
+    public void setTodoStartDate(String todoStartDate) {
         this.todoStartDate = todoStartDate;
     }
 }

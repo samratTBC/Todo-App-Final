@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="16dp">
+    android:paddingBottom="8dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/individual_card_todo"
         android:layout_width="0dp"
-        android:layout_margin="16dp"
+        android:layout_margin="8dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:cardCornerRadius="10dp"
-        app:cardBackgroundColor="@color/purple_500">
+        app:cardBackgroundColor="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"

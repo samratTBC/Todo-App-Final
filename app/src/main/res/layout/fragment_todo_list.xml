@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/add_todo_fb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -30,6 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/when_no_todo_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
