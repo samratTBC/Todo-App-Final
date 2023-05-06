@@ -18,7 +18,7 @@ public class Todo {
     @ColumnInfo(name = "is_complete")
     private Boolean isComplete;
 
-    public Boolean getComplete() {f
+    public Boolean getComplete() {
         return isComplete;
     }
 
