@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 
+import com.example.todoappfinal.Fragment.TodoDetailFragment;
 import com.example.todoappfinal.Fragment.TodoListFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         //Performing fragment transaction Via the default fragment manager provided to the activity - getSupportFragmentManager
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,TodoListFragment.newInstance()).commit();
+        //getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, TodoDetailFragment.newInstance()).commit();
     }
 
 

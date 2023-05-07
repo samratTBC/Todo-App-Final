@@ -11,5 +11,5 @@
     <color name="colorPrimary">@color/purple_500</color>
     <color name="colorPrimaryDark">#FF3F51B5</color>
     <color name="colorAccent">#FFFFFFFF</color>
-    <color name="grey">#DBDBDB</color>
+    <color name="grey">#EDEDED</color>
 </resources>

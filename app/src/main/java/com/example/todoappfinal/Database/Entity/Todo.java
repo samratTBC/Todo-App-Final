@@ -1,9 +1,12 @@
-package com.example.todoappfinal.Entity;
+package com.example.todoappfinal.Database.Entity;
 
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import com.example.todoappfinal.POJO.DateConverter;
 
 import java.util.Date;
 
@@ -13,10 +16,19 @@ public class Todo {
     @PrimaryKey(autoGenerate = true)
     private int todoID;
 
+    @ColumnInfo(name = "todo_title")
     private String todoTitle;
 
     @ColumnInfo(name = "is_complete")
     private Boolean isComplete;
+
+    @TypeConverters(DateConverter.class)
+    @ColumnInfo(name = "todo_date_created")
+    private Date todoDateCreated;
+
+    @ColumnInfo(name = "todo_description")
+    private String todoDesc;
+
 
     public Boolean getComplete() {
         return isComplete;
@@ -26,9 +38,6 @@ public class Todo {
         isComplete = complete;
     }
 
-    private String todoDesc;
-
-    private Date todoDateCreated;
 
     public int getTodoID() {
         return todoID;

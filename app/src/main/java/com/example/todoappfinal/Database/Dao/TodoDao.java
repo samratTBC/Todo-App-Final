@@ -9,7 +9,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.todoappfinal.Entity.Todo;
+import com.example.todoappfinal.Database.Entity.Todo;
 
 import java.util.List;
 
