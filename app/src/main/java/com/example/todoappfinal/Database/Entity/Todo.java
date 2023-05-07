@@ -14,21 +14,28 @@ import java.util.Date;
 public class Todo {
 
     @PrimaryKey(autoGenerate = true)
-    private int todoID;
+    public int todoID;
 
     @ColumnInfo(name = "todo_title")
-    private String todoTitle;
+    public String todoTitle;
 
     @ColumnInfo(name = "is_complete")
-    private Boolean isComplete;
+    public Boolean isComplete;
 
     @TypeConverters(DateConverter.class)
     @ColumnInfo(name = "todo_date_created")
-    private Date todoDateCreated;
+    public Date todoDateCreated;
 
     @ColumnInfo(name = "todo_description")
-    private String todoDesc;
+    public String todoDesc;
 
+    public Todo(int todoID, String todoTitle, String todoDesc, Boolean isComplete, Date todoDateCreated) {
+        this.todoID = todoID;
+        this.todoTitle = todoTitle;
+        this.isComplete = isComplete;
+        this.todoDateCreated = todoDateCreated;
+        this.todoDesc = todoDesc;
+    }
 
     public Boolean getComplete() {
         return isComplete;

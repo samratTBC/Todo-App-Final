@@ -29,7 +29,7 @@ public interface TodoDao {
     void updateTodo(Todo todo);
 
     @Delete
-    void deleteTodo(Todo todo);
+    void deleteTodo(Todo dao);
 
 
 }

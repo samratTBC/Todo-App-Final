@@ -16,6 +16,22 @@ public class TodoRepository {
 
     public LiveData<List<Todo>> todoList;
 
+    public TodoDao getTodoDao() {
+        return todoDao;
+    }
+
+    public void setTodoDao(TodoDao todoDao) {
+        this.todoDao = todoDao;
+    }
+
+    public LiveData<List<Todo>> getTodoList() {
+        return todoList;
+    }
+
+    public void setTodoList(LiveData<List<Todo>> todoList) {
+        this.todoList = todoList;
+    }
+
     public TodoRepository(Application application)
     {
         TodoRoomDB databaseInstance = TodoRoomDB.getInstance(application);
@@ -23,23 +39,23 @@ public class TodoRepository {
         todoList=todoDao.getTodos();
     }
 
-    void insertTodo(Todo todo)
+    public void insertTodo(Todo todo)
     {
         todoDao.insertTodo(todo);
     }
 
-    void deleteTodo(Todo todo)
+    public void deleteTodo(Todo todo)
     {
         todoDao.deleteTodo(todo);
     }
 
-    void updateTodo(Todo todo)
+    public void updateTodo(Todo todo)
     {
         todoDao.updateTodo(todo);
     }
 
 
-    void deleteAll()
+    public void deleteAll()
     {
         todoDao.deleteAll();
     }

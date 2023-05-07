@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.todoappfinal.POJO.Todo;
+import com.example.todoappfinal.Database.Entity.Todo;
 import com.example.todoappfinal.R;
 
 import java.util.ArrayList;
@@ -59,10 +59,10 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
 
         public void bindItems(Todo todo) {
             title_todo_card.setText(todo.getTodoTitle());
-            String briefString = todo.getTodoDescription().length()>30? todo.getTodoDescription().substring(0,31): todo.getTodoDescription() + " ... ";
+            String briefString = todo.getTodoDesc().length()>30? todo.getTodoDesc().substring(0,31): todo.getTodoDesc() + " ... ";
             desc_todo_card.setText(briefString);
-            date_todo_init_card.setText(todo.getTodoStartDate().toString());
-            todo_complete_checkbox.setChecked(todo.isCompleted());
+            date_todo_init_card.setText(todo.getTodoDateCreated().toString());
+            todo_complete_checkbox.setChecked(todo.getComplete());
         }
     }
 }
