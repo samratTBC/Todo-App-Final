@@ -18,6 +18,7 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.example.todoappfinal.Adapter.TodoListAdapter;
+import com.example.todoappfinal.Listeners.CardViewListener;
 import com.example.todoappfinal.POJO.Todo;
 import com.example.todoappfinal.R;
 import com.example.todoappfinal.TodoDetailActivity;
@@ -29,7 +30,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class TodoListFragment extends Fragment {
+public class TodoListFragment extends Fragment implements CardViewListener{
 
 
     private RecyclerView recyclerView;
@@ -91,6 +92,8 @@ public class TodoListFragment extends Fragment {
 
     }
 
+
+
     private void setData(View view) {
 
         todoViewModel.todoList.observe(getViewLifecycleOwner(),data->{
@@ -100,7 +103,7 @@ public class TodoListFragment extends Fragment {
                 when_no_todo_tv.setVisibility(View.VISIBLE);
             else
             {
-                adapter = new TodoListAdapter(new ArrayList<>(data));
+                adapter = new TodoListAdapter(new ArrayList<>(data), this);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
             }
@@ -114,11 +117,14 @@ public class TodoListFragment extends Fragment {
         public void onClick(View view) {
             Intent intent = new Intent(view.getContext(), TodoDetailActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putString("Create", "1");
+            bundle.putString("Mode", "1");
             intent.putExtras(bundle);
             startActivity(intent);
         }
     };
+
+
+
 
     private ArrayList<Todo> sendSomeData() {
 
@@ -133,5 +139,23 @@ public class TodoListFragment extends Fragment {
             }
         }
         return data;
+    }
+
+
+    @Override
+    public void onTodoClicked(com.example.todoappfinal.Database.Entity.Todo todo) {
+        Intent intent = new Intent(getContext(), TodoDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("Mode", "2");
+
+        bundle.putInt("id", todo.getTodoID());
+        bundle.putString("desc", todo.getTodoDesc());
+        bundle.putString("title", todo.getTodoTitle());
+        bundle.putSerializable("date", todo.getTodoDateCreated().toString());
+        bundle.putBoolean("isComplete", todo.getComplete());
+
+        intent.putExtras(bundle);
+        startActivity(intent);
+
     }
 }
