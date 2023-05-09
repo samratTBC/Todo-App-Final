@@ -4,7 +4,10 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -19,6 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todoappfinal.Database.Entity.Todo;
 import com.example.todoappfinal.Listeners.CardViewListener;
+import com.example.todoappfinal.Listeners.LongClickSelectedDelete;
+import com.example.todoappfinal.MainActivity;
 import com.example.todoappfinal.R;
 
 import java.text.ParseException;
@@ -28,19 +33,23 @@ import java.util.Date;
 
 public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHolder> {
 
-    private Context context;
+    public MainActivity context;
     private ArrayList<Todo> todoArrayList;
 
     private CardViewListener onclickCardListener;
 
+    private LongClickSelectedDelete longClickSelectedDelete;
     private ArrayList<Todo> selectedList = new ArrayList<>();
 
     private Boolean selected = false;
 
-    public TodoListAdapter(ArrayList<Todo> arrayList,CardViewListener listener)
+
+    public TodoListAdapter(ArrayList<Todo> arrayList,CardViewListener listener, MainActivity context)
     {
         this.todoArrayList=arrayList;
         this.onclickCardListener=listener;
+        this.context = context;
+        this.longClickSelectedDelete =context;
     }
 
     @NonNull
@@ -71,7 +80,6 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
         private LinearLayout text_holders;
 
 
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -87,7 +95,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
 
         public void bindItems(Todo todo) {
             title_todo_card.setText(todo.getTodoTitle());
-            String briefString = todo.getTodoDesc().length()>30? todo.getTodoDesc().substring(0,31): todo.getTodoDesc() + " ... ";
+            String briefString = todo.getTodoDesc().length()>30? todo.getTodoDesc().substring(0,31) : todo.getTodoDesc() + " ... ";
             desc_todo_card.setText(briefString);
             date_todo_init_card.setText(formatDate(todo.getTodoDateCreated()));
             if(todo.isComplete)
@@ -99,7 +107,6 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
                 todo_complete_checkbox.setVisibility(View.VISIBLE);
                 completedImg.setVisibility(View.GONE);
             }
-
 
 
             todo_complete_checkbox.setOnCheckedChangeListener((compoundButton, checkValue) -> {
@@ -135,7 +142,15 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
                 }
 
                 if(selectedList.size()==0)
+                {
                     selected = false;
+                    context.getDeleteImageBtn().setVisibility(View.GONE);
+                    context.getPopUpMenu().setVisibility(View.VISIBLE);
+                }
+
+                context.getDeleteImageBtn().setVisibility(View.VISIBLE);
+                context.getPopUpMenu().setVisibility(View.GONE);
+
                 return true;
             });
 
@@ -156,10 +171,19 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
                     }
 
                     if(selectedList.size()==0)
+                    {
                         selected = false;
+                        context.getDeleteImageBtn().setVisibility(View.GONE);
+                        context.getPopUpMenu().setVisibility(View.VISIBLE);
+                    }
+
                 }
 
                 Log.d("TAG", "bindItems: " + selectedList.toString());
+            });
+
+            context.getDeleteImageBtn().setOnClickListener(view -> {
+                longClickSelectedDelete.deleteSelectedLongClick(selectedList);
             });
 
         }

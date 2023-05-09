@@ -1,5 +1,6 @@
 package com.example.todoappfinal.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.todoappfinal.Adapter.TodoListAdapter;
 import com.example.todoappfinal.Listeners.CardViewListener;
+import com.example.todoappfinal.MainActivity;
 import com.example.todoappfinal.POJO.Todo;
 import com.example.todoappfinal.R;
 import com.example.todoappfinal.TodoDetailActivity;
@@ -42,40 +44,42 @@ public class TodoListFragment extends Fragment implements CardViewListener{
 
     private TodoListAdapter adapter;
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private MainActivity mainActivity;
+//
+//    private static final String ARG_PARAM1 = "param1";
+//    private static final String ARG_PARAM2 = "param2";
+//
+//    // TODO: Rename and change types of parameters
+//    private String mParam1;
+//    private String mParam2;
 
     private TodoViewModel todoViewModel;
 
     public TodoListFragment() {
         // Required empty public constructor
     }
-    public static TodoListFragment newInstance(String param1, String param2) {
-        TodoListFragment fragment = new TodoListFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+//    public static TodoListFragment newInstance(String param1, String param2) {
+//        TodoListFragment fragment = new TodoListFragment();
+//        Bundle args = new Bundle();
+//        args.putString(ARG_PARAM1, param1);
+//        args.putString(ARG_PARAM2, param2);
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
 
     public static TodoListFragment newInstance()
     {
         return new TodoListFragment();
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        if (getArguments() != null) {
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//            mParam2 = getArguments().getString(ARG_PARAM2);
+//        }
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -96,22 +100,26 @@ public class TodoListFragment extends Fragment implements CardViewListener{
     }
 
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mainActivity = (MainActivity) context;
+    }
 
     private void setData(View view) {
 
         todoViewModel.todoList.observe(getViewLifecycleOwner(),data->{
 
             Log.d("TAG", "setData: Entered");
-            if(sendSomeData().size()==0)
+            if(data.size()==0)
                 when_no_todo_tv.setVisibility(View.VISIBLE);
             else
             {
-                adapter = new TodoListAdapter(new ArrayList<>(data), this);
+                adapter = new TodoListAdapter(new ArrayList<>(data), this, mainActivity);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
             }
         });
-
 
     }
 

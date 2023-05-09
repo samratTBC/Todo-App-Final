@@ -4,68 +4,78 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
+import com.example.todoappfinal.Database.Entity.Todo;
 import com.example.todoappfinal.Fragment.TodoDetailFragment;
 import com.example.todoappfinal.Fragment.TodoListFragment;
+import com.example.todoappfinal.Listeners.LongClickSelectedDelete;
+import com.example.todoappfinal.ViewModel.TodoViewModel;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
 
-    private Menu mainMenu;
+public class MainActivity extends AppCompatActivity implements LongClickSelectedDelete {
 
-    private ActionMode.Callback menuActionModeCallBack = new ActionMode.Callback() {
-        @Override
-        public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
-            actionMode.getMenuInflater().inflate(R.menu.main_menu,menu);
-            actionMode.setTitle();
+    private ImageView deleteImageBtn;
+    private ImageView popUpMenu;
 
-            return false;
-        }
 
-        @Override
-        public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
-            return false;
-        }
+    private View.OnClickListener popUpMenuListener = view -> {
+        PopupMenu menu = new PopupMenu(MainActivity.this, popUpMenu);
+        menu.getMenuInflater().inflate(R.menu.main_menu,menu.getMenu());
 
-        @Override
-        public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
-            return false;
-        }
+        menu.setOnMenuItemClickListener(menuItem -> {
+            Toast.makeText(this, "You clicked" + menuItem.getTitle(), Toast.LENGTH_SHORT).show();
+            return true;
+        });
+        menu.show();
 
-        @Override
-        public void onDestroyActionMode(ActionMode actionMode) {
-
-        }
-    }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         getSupportActionBar().hide();
-        //Performing fragment transaction Via the default fragment manager provided to the activity - getSupportFragmentManager
+        deleteImageBtn = findViewById(R.id.deleteView);
+        popUpMenu = findViewById(R.id.popupMenu);
+        popUpMenu.setOnClickListener(popUpMenuListener);
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,TodoListFragment.newInstance()).commit();
-        //getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, TodoDetailFragment.newInstance()).commit();
+    }
+
+    public ImageView getDeleteImageBtn()
+    {
+        return deleteImageBtn;
+    }
+
+    public ImageView getPopUpMenu() {
+        return popUpMenu;
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        mainMenu = menu;
-        getMenuInflater().inflate(R.menu.main_menu,mainMenu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId())
+    public void deleteSelectedLongClick(ArrayList<Todo> lists) {
+        TodoViewModel vm = new ViewModelProvider(this).get(TodoViewModel.class);
+        for(Todo list : lists)
         {
-            case R.id.todoDeleteMenu:
-
+            vm.deleteTodo(list);
         }
-        return super.onOptionsItemSelected(item);
+        deleteImageBtn.setVisibility(View.GONE);
+        popUpMenu.setVisibility(View.VISIBLE);
     }
+
+
+
+
+
 }
