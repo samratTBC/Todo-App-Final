@@ -14,8 +14,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.todoappfinal.Adapter.TodoListAdapter;
 import com.example.todoappfinal.Listeners.CardViewListener;
@@ -158,4 +161,17 @@ public class TodoListFragment extends Fragment implements CardViewListener{
         startActivity(intent);
 
     }
+
+    @Override
+    public void onTodoChecked(com.example.todoappfinal.Database.Entity.Todo todo, Boolean checkValue, View view) {
+        TodoViewModel vm = new ViewModelProvider(this).get(TodoViewModel.class);
+        vm.updateTodo(new com.example.todoappfinal.Database.Entity.Todo(todo.getTodoID(),todo.getTodoTitle(),todo.getTodoDesc(), checkValue, todo.getTodoDateCreated() ));
+
+        if(view instanceof CheckBox)
+            Toast.makeText(getContext(), "Todo Completed", Toast.LENGTH_SHORT).show();
+        if(view instanceof ImageView)
+            Toast.makeText(getContext(), "Todo Pending.", Toast.LENGTH_SHORT).show();
+    }
+
+
 }

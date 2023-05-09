@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/text_holders"
             android:orientation="vertical"
+            android:background="@color/grey"
             android:padding="16dp">
             <TextView
                 android:id="@+id/title_todo_card"
@@ -56,6 +57,13 @@
                 android:text="@string/Completed"
                 android:textSize="12sp"
                 />
+            <ImageView
+                android:id="@+id/completedImg"
+                android:layout_width="36dp"
+                android:layout_marginTop="16dp"
+                android:layout_height="36dp"
+                android:src="@drawable/completed"
+                android:visibility="gone"/>
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>

@@ -1,11 +1,16 @@
 package com.example.todoappfinal.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,6 +32,10 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
     private ArrayList<Todo> todoArrayList;
 
     private CardViewListener onclickCardListener;
+
+    private ArrayList<Todo> selectedList = new ArrayList<>();
+
+    private Boolean selected = false;
 
     public TodoListAdapter(ArrayList<Todo> arrayList,CardViewListener listener)
     {
@@ -55,8 +64,13 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
 
         private TextView date_todo_init_card,desc_todo_card,title_todo_card;
         private CheckBox todo_complete_checkbox;
+        private ImageView completedImg;
 
         private ConstraintLayout cardView;
+
+        private LinearLayout text_holders;
+
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,6 +80,8 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
             title_todo_card = itemView.findViewById(R.id.title_todo_card);
             todo_complete_checkbox = itemView.findViewById(R.id.todo_complete_checkbox);
             cardView = itemView.findViewById(R.id.card_view);
+            completedImg = itemView.findViewById(R.id.completedImg);
+            text_holders = itemView.findViewById(R.id.text_holders);
 
         }
 
@@ -74,10 +90,78 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
             String briefString = todo.getTodoDesc().length()>30? todo.getTodoDesc().substring(0,31): todo.getTodoDesc() + " ... ";
             desc_todo_card.setText(briefString);
             date_todo_init_card.setText(formatDate(todo.getTodoDateCreated()));
-            todo_complete_checkbox.setChecked(todo.getComplete());
-            cardView.setOnClickListener(view -> {
-                onclickCardListener.onTodoClicked(todo);
+            if(todo.isComplete)
+            {
+                todo_complete_checkbox.setVisibility(View.GONE);
+                completedImg.setVisibility(View.VISIBLE);
+            }
+            else {
+                todo_complete_checkbox.setVisibility(View.VISIBLE);
+                completedImg.setVisibility(View.GONE);
+            }
+
+
+
+            todo_complete_checkbox.setOnCheckedChangeListener((compoundButton, checkValue) -> {
+
+                if (checkValue) {
+                    title_todo_card.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+                    desc_todo_card.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+                    date_todo_init_card.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+                } else {
+                    title_todo_card.setPaintFlags(title_todo_card.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                    desc_todo_card.setPaintFlags(desc_todo_card.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                    date_todo_init_card.setPaintFlags(date_todo_init_card.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                }
+
+                onclickCardListener.onTodoChecked(todo,checkValue, todo_complete_checkbox);
             });
+
+            completedImg.setOnClickListener(view -> {
+                onclickCardListener.onTodoChecked(todo,false, completedImg);
+            });
+
+            cardView.setOnLongClickListener(view ->{
+                selected = true;
+                if(selectedList.contains(todoArrayList.get(getAdapterPosition())))
+                {
+                    text_holders.setBackgroundColor(Color.TRANSPARENT);
+                    selectedList.remove(todoArrayList.get(getAdapterPosition()));
+                }
+                else
+                {
+                    text_holders.setBackgroundColor(itemView.getResources().getColor(R.color.selected));
+                    selectedList.add(todoArrayList.get(getAdapterPosition()));
+                }
+
+                if(selectedList.size()==0)
+                    selected = false;
+                return true;
+            });
+
+            cardView.setOnClickListener(view -> {
+                if(!selected)
+                    onclickCardListener.onTodoClicked(todo);
+                else
+                {
+                    if(selectedList.contains(todoArrayList.get(getAdapterPosition())))
+                    {
+                        text_holders.setBackgroundColor(Color.TRANSPARENT);
+                        selectedList.remove(todoArrayList.get(getAdapterPosition()));
+                    }
+                    else
+                    {
+                        text_holders.setBackgroundColor(itemView.getResources().getColor(R.color.selected));
+                        selectedList.add(todoArrayList.get(getAdapterPosition()));
+                    }
+
+                    if(selectedList.size()==0)
+                        selected = false;
+                }
+
+                Log.d("TAG", "bindItems: " + selectedList.toString());
+            });
+
         }
 
         private String formatDate(Date date_db) {

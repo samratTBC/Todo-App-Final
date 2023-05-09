@@ -8,4 +8,6 @@ public interface CardViewListener  {
 
     void onTodoClicked(Todo todo);
 
+    void onTodoChecked(Todo todo, Boolean checkValue, View view);
+
 }
