@@ -12,10 +12,12 @@ import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.example.todoappfinal.Adapter.TodoListAdapter;
 import com.example.todoappfinal.Database.Entity.Todo;
 import com.example.todoappfinal.Fragment.TodoDetailFragment;
 import com.example.todoappfinal.Fragment.TodoListFragment;
@@ -30,28 +32,39 @@ public class MainActivity extends AppCompatActivity implements LongClickSelected
     private ImageView popUpMenu;
 
 
-    private View.OnClickListener popUpMenuListener = view -> {
-        PopupMenu menu = new PopupMenu(MainActivity.this, popUpMenu);
-        menu.getMenuInflater().inflate(R.menu.main_menu,menu.getMenu());
+    private ImageView cancelImg;
 
-        menu.setOnMenuItemClickListener(menuItem -> {
-            Toast.makeText(this, "You clicked" + menuItem.getTitle(), Toast.LENGTH_SHORT).show();
-            return true;
-        });
-        menu.show();
+    private ImageView noteIconImg;
 
-    };
+    public static Boolean linearGrid = false;
+
+
+    public ImageView getCancelImg() {
+        return cancelImg;
+    }
+
+    public ImageView getNoteIconImg() {
+        return noteIconImg;
+    }
+
+    private View.OnClickListener popUpMenuListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         getSupportActionBar().hide();
+        init();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,TodoListFragment.newInstance(linearGrid)).commit();
+    }
+
+    public void init()
+    {
         deleteImageBtn = findViewById(R.id.deleteView);
         popUpMenu = findViewById(R.id.popupMenu);
-        popUpMenu.setOnClickListener(popUpMenuListener);
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,TodoListFragment.newInstance()).commit();
+//        popUpMenu.setOnClickListener(popUpMenuListener);
+        cancelImg = findViewById(R.id.cancelSelection);
+        noteIconImg=findViewById(R.id.noteIconImg);
     }
 
     public ImageView getDeleteImageBtn()
@@ -64,12 +77,13 @@ public class MainActivity extends AppCompatActivity implements LongClickSelected
     }
 
     @Override
-    public void deleteSelectedLongClick(ArrayList<Todo> lists) {
+    public void deleteSelectedLongClick(ArrayList<Todo> lists, TodoListAdapter adapter) {
         TodoViewModel vm = new ViewModelProvider(this).get(TodoViewModel.class);
         for(Todo list : lists)
         {
             vm.deleteTodo(list);
         }
+        adapter.notifyDataSetChanged();
         deleteImageBtn.setVisibility(View.GONE);
         popUpMenu.setVisibility(View.VISIBLE);
     }

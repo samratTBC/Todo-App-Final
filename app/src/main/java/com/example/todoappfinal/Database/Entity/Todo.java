@@ -29,12 +29,24 @@ public class Todo {
     @ColumnInfo(name = "todo_description")
     public String todoDesc;
 
-    public Todo(int todoID, String todoTitle, String todoDesc, Boolean isComplete, Date todoDateCreated) {
+    @ColumnInfo(name ="todo_notification_time")
+    public String notification;
+
+    public Todo(int todoID, String todoTitle, String todoDesc, Boolean isComplete, Date todoDateCreated, String notification) {
         this.todoID = todoID;
         this.todoTitle = todoTitle;
         this.isComplete = isComplete;
         this.todoDateCreated = todoDateCreated;
         this.todoDesc = todoDesc;
+        this.notification=notification;
+    }
+
+    public String getNotification() {
+        return notification;
+    }
+
+    public void setNotification(String notification) {
+        this.notification = notification;
     }
 
     public Boolean getComplete() {

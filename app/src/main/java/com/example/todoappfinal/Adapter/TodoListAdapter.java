@@ -30,6 +30,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHolder> {
 
@@ -39,17 +40,20 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
     private CardViewListener onclickCardListener;
 
     private LongClickSelectedDelete longClickSelectedDelete;
+
+    private RecyclerView rv;
     private ArrayList<Todo> selectedList = new ArrayList<>();
 
     private Boolean selected = false;
 
 
-    public TodoListAdapter(ArrayList<Todo> arrayList,CardViewListener listener, MainActivity context)
+    public TodoListAdapter(ArrayList<Todo> arrayList,CardViewListener listener, MainActivity context, RecyclerView rv)
     {
         this.todoArrayList=arrayList;
         this.onclickCardListener=listener;
         this.context = context;
         this.longClickSelectedDelete =context;
+        this.rv=rv;
     }
 
     @NonNull
@@ -61,7 +65,16 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bindItems(todoArrayList.get(position));
+        holder.bindItems(todoArrayList.get(position), holder);
+        context.getCancelImg().setOnClickListener(view -> {
+            selected = false;
+            selectedList.clear();
+
+            context.getDeleteImageBtn().setVisibility(View.GONE);
+            context.getPopUpMenu().setVisibility(View.VISIBLE);
+            context.getCancelImg().setVisibility(View.GONE);
+            context.getNoteIconImg().setVisibility(View.VISIBLE);
+        });
     }
 
     @Override
@@ -80,6 +93,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
         private LinearLayout text_holders;
 
 
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -93,11 +107,12 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
 
         }
 
-        public void bindItems(Todo todo) {
+        public void bindItems(Todo todo, ViewHolder holder) {
             title_todo_card.setText(todo.getTodoTitle());
-            String briefString = todo.getTodoDesc().length()>30? todo.getTodoDesc().substring(0,31) : todo.getTodoDesc() + " ... ";
+            String briefString = todo.getTodoDesc().length()<30? todo.getTodoDesc() : todo.getTodoDesc().substring(0,30) + " ... ";
             desc_todo_card.setText(briefString);
             date_todo_init_card.setText(formatDate(todo.getTodoDateCreated()));
+            Log.d("DATE", "bindItems: "+ todo.getTodoDateCreated().toString());
             if(todo.isComplete)
             {
                 todo_complete_checkbox.setVisibility(View.GONE);
@@ -110,17 +125,6 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
 
 
             todo_complete_checkbox.setOnCheckedChangeListener((compoundButton, checkValue) -> {
-
-                if (checkValue) {
-                    title_todo_card.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-                    desc_todo_card.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-                    date_todo_init_card.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-                } else {
-                    title_todo_card.setPaintFlags(title_todo_card.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
-                    desc_todo_card.setPaintFlags(desc_todo_card.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
-                    date_todo_init_card.setPaintFlags(date_todo_init_card.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
-                }
-
                 onclickCardListener.onTodoChecked(todo,checkValue, todo_complete_checkbox);
             });
 
@@ -149,6 +153,8 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
                 }
 
                 context.getDeleteImageBtn().setVisibility(View.VISIBLE);
+                context.getCancelImg().setVisibility(View.VISIBLE);
+                context.getNoteIconImg().setVisibility(View.GONE);
                 context.getPopUpMenu().setVisibility(View.GONE);
 
                 return true;
@@ -175,6 +181,8 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
                         selected = false;
                         context.getDeleteImageBtn().setVisibility(View.GONE);
                         context.getPopUpMenu().setVisibility(View.VISIBLE);
+                        context.getCancelImg().setVisibility(View.GONE);
+                        context.getNoteIconImg().setVisibility(View.VISIBLE);
                     }
 
                 }
@@ -183,20 +191,24 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
             });
 
             context.getDeleteImageBtn().setOnClickListener(view -> {
-                longClickSelectedDelete.deleteSelectedLongClick(selectedList);
+                longClickSelectedDelete.deleteSelectedLongClick(selectedList, TodoListAdapter.this);
+                context.getCancelImg().setVisibility(View.GONE);
+                context.getNoteIconImg().setVisibility(View.VISIBLE);
+                notifyDataSetChanged();
+
             });
 
         }
 
+
         private String formatDate(Date date_db) {
-            try {
-                SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd yy");
-                Date date = format.parse(date_db.toString());
-                return format.format(date);
-            }
-            catch (ParseException e) {
-                    throw new RuntimeException(e);
-                }
+            //                SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd yyyy", Locale.US);
+////                SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.US);
+//                Date date = format.parse(date_db.toString());
+
+            String date = date_db.toString();
+            String formattedDate = date.substring(0, 3)+", "+date.substring(3, 10) + " " + date.substring(30,34);
+            return formattedDate;
         }
     }
 }

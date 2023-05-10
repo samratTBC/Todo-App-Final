@@ -10,7 +10,18 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/noteIconImg"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        app:layout_constraintBottom_toBottomOf="@+id/title_of_app"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/title_of_app"
+        app:srcCompat="@drawable/baseline_edit_note_black_24" />
+
+    <ImageView
+        android:id="@+id/cancelSelection"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_marginTop="24dp"
@@ -18,21 +29,21 @@
         app:layout_constraintHorizontal_bias="0.06"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/baseline_edit_note_black_24" />
+        android:visibility="gone"
+        app:srcCompat="@drawable/baseline_cancel_24" />
 
     <TextView
         android:id="@+id/title_of_app"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="24dp"
         android:text="@string/todoApp"
+        android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/deleteView"
@@ -40,9 +51,9 @@
         android:layout_height="36dp"
         android:layout_marginEnd="16dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="@+id/title_of_app"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/title_of_app"
         app:srcCompat="@drawable/baseline_delete_24" />
 
     <ImageView
@@ -50,11 +61,18 @@
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="@+id/title_of_app"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/title_of_app"
         app:srcCompat="@drawable/baseline_menu_24" />
 
+    <View
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/fragment_container" />
 
     <FrameLayout
         android:id="@+id/fragment_container"

@@ -11,6 +11,8 @@
     <string name="update_todo">Update</string>
     <string name="new_todo">Add new</string>
     <string name="notification_hint">Add Timer</string>
+    <string name="change_grid">Change Layout</string>
+    <string name="github">Github</string>
 
 
 </resources>
