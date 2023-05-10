@@ -66,16 +66,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bindItems(todoArrayList.get(position), holder);
-        context.getCancelImg().setOnClickListener(view -> {
-            selected = false;
-            unselect();
-            selectedList.clear();
 
-            context.getDeleteImageBtn().setVisibility(View.GONE);
-            context.getPopUpMenu().setVisibility(View.VISIBLE);
-            context.getCancelImg().setVisibility(View.GONE);
-            context.getNoteIconImg().setVisibility(View.VISIBLE);
-        });
     }
 
     public void unselect()
@@ -83,7 +74,6 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
         for (int i =0; i<getItemCount(); i++)
         {
             ViewHolder view = (ViewHolder) rv.getChildViewHolder(rv.getChildAt(i));
-            Log.d("TAG", "unselect: " + view.toString());
             view.text_holders.setBackgroundColor(Color.TRANSPARENT);
         }
     }
@@ -207,6 +197,18 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
                 context.getNoteIconImg().setVisibility(View.VISIBLE);
                 notifyDataSetChanged();
 
+            });
+
+            context.getCancelImg().setOnClickListener(view -> {
+                selected = false;
+
+                unselect();
+                selectedList.clear();
+
+                context.getDeleteImageBtn().setVisibility(View.GONE);
+                context.getPopUpMenu().setVisibility(View.VISIBLE);
+                context.getCancelImg().setVisibility(View.GONE);
+                context.getNoteIconImg().setVisibility(View.VISIBLE);
             });
 
         }
