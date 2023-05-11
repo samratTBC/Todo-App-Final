@@ -66,13 +66,16 @@
         app:layout_constraintTop_toTopOf="@+id/title_of_app"
         app:srcCompat="@drawable/baseline_menu_24" />
 
+
     <View
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:background="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/fragment_container" />
+        app:layout_constraintTop_toTopOf="@id/fragment_container"
+        android:id="@+id/line"/>
+
 
     <FrameLayout
         android:id="@+id/fragment_container"

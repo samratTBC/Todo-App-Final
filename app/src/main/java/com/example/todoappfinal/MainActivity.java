@@ -1,28 +1,22 @@
 package com.example.todoappfinal;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import android.widget.SearchView;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.ActionMode;
-import android.view.Menu;
-import android.view.MenuItem;
+
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.example.todoappfinal.Adapter.TodoListAdapter;
 import com.example.todoappfinal.Database.Entity.Todo;
-import com.example.todoappfinal.Fragment.TodoDetailFragment;
+
 import com.example.todoappfinal.Fragment.TodoListFragment;
 import com.example.todoappfinal.Listeners.LongClickSelectedDelete;
 import com.example.todoappfinal.ViewModel.TodoViewModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 
 import java.util.ArrayList;
 
@@ -31,13 +25,11 @@ public class MainActivity extends AppCompatActivity implements LongClickSelected
     private ImageView deleteImageBtn;
     private ImageView popUpMenu;
 
+    private TextView title_of_app;
 
     private ImageView cancelImg;
 
     private ImageView noteIconImg;
-
-    public static Boolean linearGrid = false;
-
 
     public ImageView getCancelImg() {
         return cancelImg;
@@ -47,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements LongClickSelected
         return noteIconImg;
     }
 
-    private View.OnClickListener popUpMenuListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,17 +46,23 @@ public class MainActivity extends AppCompatActivity implements LongClickSelected
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
         init();
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,TodoListFragment.newInstance(linearGrid)).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,TodoListFragment.newInstance()).commit();
+
+
     }
+
+
 
     public void init()
     {
         deleteImageBtn = findViewById(R.id.deleteView);
         popUpMenu = findViewById(R.id.popupMenu);
-//        popUpMenu.setOnClickListener(popUpMenuListener);
         cancelImg = findViewById(R.id.cancelSelection);
         noteIconImg=findViewById(R.id.noteIconImg);
+        title_of_app = findViewById(R.id.title_of_app);
+
     }
+
 
     public ImageView getDeleteImageBtn()
     {

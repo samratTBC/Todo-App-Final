@@ -29,17 +29,32 @@
         app:layout_constraintStart_toEndOf="@+id/back_btn_img"
         app:layout_constraintTop_toTopOf="@+id/back_btn_img" />
 
+    <View
+        android:id="@+id/line"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@android:color/black"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/based_on_click_heading_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_heading_tv" />
+
     <TextView
         android:id="@+id/based_on_click_heading_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/TODO"
+
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintStart_toStartOf="@+id/linearLayout"
-        app:layout_constraintTop_toBottomOf="@+id/main_heading_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/main_heading_tv"
+        app:layout_constraintVertical_bias="0.7" />
 
 
     <LinearLayout
@@ -51,7 +66,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_heading_tv"
-        app:layout_constraintVertical_bias="0.24000001">
+        app:layout_constraintVertical_bias="0.34000001">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/todo_title_tv"

@@ -30,10 +30,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHolder> {
 
+
+    private ArrayList<Todo> searchTodo;
     public MainActivity context;
     private ArrayList<Todo> todoArrayList;
 
@@ -46,6 +50,10 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
 
     private Boolean selected = false;
 
+    public void setDataForSearch(ArrayList<Todo>searchTodo)
+    {
+        this.todoArrayList=searchTodo;
+    }
 
     public TodoListAdapter(ArrayList<Todo> arrayList,CardViewListener listener, MainActivity context, RecyclerView rv)
     {
@@ -75,6 +83,8 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
         {
             ViewHolder view = (ViewHolder) rv.getChildViewHolder(rv.getChildAt(i));
             view.text_holders.setBackgroundColor(Color.TRANSPARENT);
+            Log.d("TAG", "unselect: " + rv.getChildAt(i).toString());
+            Log.d("TAG", "unselect: " + view.toString());
         }
     }
 

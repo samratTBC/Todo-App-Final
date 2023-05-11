@@ -24,22 +24,20 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.PopupMenu;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.todoappfinal.Adapter.TodoListAdapter;
+import com.example.todoappfinal.Database.Entity.Todo;
 import com.example.todoappfinal.Listeners.CardViewListener;
 import com.example.todoappfinal.MainActivity;
-import com.example.todoappfinal.POJO.Todo;
 import com.example.todoappfinal.R;
 import com.example.todoappfinal.TodoDetailActivity;
 import com.example.todoappfinal.ViewModel.TodoViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class TodoListFragment extends Fragment implements CardViewListener{
 
@@ -48,14 +46,18 @@ public class TodoListFragment extends Fragment implements CardViewListener{
     private TextView when_no_todo_tv;
     private FloatingActionButton addNewTodo;
 
-    private TodoListAdapter adapter;
+    public TodoListAdapter adapter;
 
     private MainActivity mainActivity;
+    
+    private TextView searchEmpty;
 
 
     private TodoViewModel todoViewModel;
 
     private MenuItem menuItem;
+
+    private SearchView searchView;
     private static Boolean linearGrid;
 
     public RecyclerView getRecyclerView() {
@@ -66,9 +68,8 @@ public class TodoListFragment extends Fragment implements CardViewListener{
         // Required empty public constructor
     }
 
-    public static TodoListFragment newInstance(Boolean grid)
+    public static TodoListFragment newInstance()
     {
-        linearGrid = grid;
         return new TodoListFragment();
     }
 
@@ -90,6 +91,42 @@ public class TodoListFragment extends Fragment implements CardViewListener{
         todoViewModel = new ViewModelProvider(this).get(TodoViewModel.class);
         setData(view);
         addNewTodo.setOnClickListener(newActivityFabListener);
+        searchView=view.findViewById(R.id.search);
+        searchEmpty=view.findViewById(R.id.searchEmpty);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(searchDatac(newText).size()==0)
+                {
+                    searchEmpty.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                }
+                else
+                {
+                    adapter.setDataForSearch(searchDatac(newText));
+                    adapter.notifyDataSetChanged();
+                    searchEmpty.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
+                return false;
+            }
+        });
+
+//        searchView.setOnFocusChangeListener((v, hasFocus) -> {
+//
+//            if (!searchView.hasFocus()) {
+//                //this if condition is true when searchview lost focus...
+//                searchView.setActivated(false);
+//                searchView.setPressed(false);
+//            }
+//        });
+
 
 
 
@@ -142,6 +179,24 @@ public class TodoListFragment extends Fragment implements CardViewListener{
 
 
     }
+
+    private ArrayList<Todo> searchDatac(String newText) {
+        ArrayList<Todo> mainData = (ArrayList<Todo>) todoViewModel.todoList.getValue();
+
+        ArrayList<Todo> dataAfterSearch = new ArrayList<>();
+
+        for (Todo todo : mainData) {
+            if (todo.getTodoTitle().toLowerCase().contains(newText.toLowerCase())) {
+                dataAfterSearch.add(todo);
+            }
+        }
+
+        return dataAfterSearch;
+
+    }
+
+
+
 
 
     @Override

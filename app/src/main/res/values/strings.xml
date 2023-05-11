@@ -10,9 +10,13 @@
     <string name="todo_title_tv">Todo Title</string>
     <string name="update_todo">Update</string>
     <string name="new_todo">Add new</string>
-    <string name="notification_hint">Add Timer</string>
+    <string name="notification_hint">Add Deadline</string>
     <string name="change_grid">Change Layout</string>
     <string name="github">Github</string>
+    <string name="home">Home</string>
+    <string name="Search">Search</string>
+    <string name="search_todo">Search todo</string>
+    <string name="no_results_found">No results</string>
 
 
 </resources>
