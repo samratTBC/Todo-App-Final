@@ -83,8 +83,6 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
         {
             ViewHolder view = (ViewHolder) rv.getChildViewHolder(rv.getChildAt(i));
             view.text_holders.setBackgroundColor(Color.TRANSPARENT);
-            Log.d("TAG", "unselect: " + rv.getChildAt(i).toString());
-            Log.d("TAG", "unselect: " + view.toString());
         }
     }
 
@@ -225,10 +223,6 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
 
 
         private String formatDate(Date date_db) {
-            //                SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd yyyy", Locale.US);
-////                SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.US);
-//                Date date = format.parse(date_db.toString());
-
             String date = date_db.toString();
             String formattedDate = date.substring(0, 3)+", "+date.substring(3, 10) + " " + date.substring(30,34);
             return formattedDate;

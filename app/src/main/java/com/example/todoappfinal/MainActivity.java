@@ -15,7 +15,7 @@ import com.example.todoappfinal.Database.Entity.Todo;
 import com.example.todoappfinal.Fragment.TodoListFragment;
 import com.example.todoappfinal.Listeners.LongClickSelectedDelete;
 import com.example.todoappfinal.ViewModel.TodoViewModel;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 
 
 import java.util.ArrayList;
@@ -23,6 +23,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements LongClickSelectedDelete {
 
     private ImageView deleteImageBtn;
+
+    public static Boolean linearGrid = false;
     private ImageView popUpMenu;
 
     private TextView title_of_app;
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements LongClickSelected
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
         init();
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,TodoListFragment.newInstance()).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,TodoListFragment.newInstance(linearGrid)).commit();
 
 
     }

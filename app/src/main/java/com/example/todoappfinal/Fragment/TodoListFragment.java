@@ -68,6 +68,12 @@ public class TodoListFragment extends Fragment implements CardViewListener{
         // Required empty public constructor
     }
 
+    public static TodoListFragment newInstance(Boolean grid)
+    {
+        linearGrid = grid;
+        return new TodoListFragment();
+    }
+
     public static TodoListFragment newInstance()
     {
         return new TodoListFragment();
@@ -118,16 +124,6 @@ public class TodoListFragment extends Fragment implements CardViewListener{
             }
         });
 
-//        searchView.setOnFocusChangeListener((v, hasFocus) -> {
-//
-//            if (!searchView.hasFocus()) {
-//                //this if condition is true when searchview lost focus...
-//                searchView.setActivated(false);
-//                searchView.setPressed(false);
-//            }
-//        });
-
-
 
 
         mainActivity.getPopUpMenu().setOnClickListener( view1 -> {
@@ -161,12 +157,14 @@ public class TodoListFragment extends Fragment implements CardViewListener{
                             recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
                             linearGrid = true;
                         }
+                        break;
                     }
                     case R.id.githubLink:
                     {
                         Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse("http://www.google.com"));
+                        intent.setData(Uri.parse("https://github.com/samratTBC/Todo-App-Final"));
                         startActivity(intent);
+                        break;
                     }
                     default:
                         return true;
@@ -211,6 +209,7 @@ public class TodoListFragment extends Fragment implements CardViewListener{
 
             if (data.size() == 0) {
                 when_no_todo_tv.setVisibility(View.VISIBLE);
+                searchEmpty.setVisibility(View.GONE);
 
             } else {
                 when_no_todo_tv.setVisibility(View.GONE);
