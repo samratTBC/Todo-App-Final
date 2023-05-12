@@ -145,7 +145,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
                 selected = true;
                 if(selectedList.contains(todoArrayList.get(getAdapterPosition())))
                 {
-                    text_holders.setBackgroundColor(Color.TRANSPARENT);
+                    text_holders.setBackgroundColor(Color.WHITE);
                     selectedList.remove(todoArrayList.get(getAdapterPosition()));
                 }
                 else
@@ -176,7 +176,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
                 {
                     if(selectedList.contains(todoArrayList.get(getAdapterPosition())))
                     {
-                        text_holders.setBackgroundColor(Color.TRANSPARENT);
+                        text_holders.setBackgroundColor(Color.WHITE);
                         selectedList.remove(todoArrayList.get(getAdapterPosition()));
                     }
                     else
