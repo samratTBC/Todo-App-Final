@@ -41,6 +41,8 @@ public class TodoDetailActivity extends AppCompatActivity {
     private TodoViewModel todoViewModel;
     private int getMode;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

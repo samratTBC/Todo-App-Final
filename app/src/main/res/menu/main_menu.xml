@@ -16,4 +16,9 @@
         android:id="@+id/githubLink"
         android:title="@string/github"
         />
+
+    <item
+        android:id="@+id/sortbycomplete"
+        android:title="@string/sortByTask"
+        />
 </menu>

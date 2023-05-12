@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import com.example.todoappfinal.Database.Entity.Todo;
 import com.example.todoappfinal.Database.Repository.TodoRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TodoViewModel extends AndroidViewModel {
@@ -42,6 +43,14 @@ public class TodoViewModel extends AndroidViewModel {
     public void deleteAll()
     {
         todoRepository.deleteAll();
+    }
+
+    public LiveData<List<Todo>> sortByCompleted(){
+        return todoRepository.sortByComplete();
+    }
+
+    public LiveData<List<Todo>> sortByInCompleted(){
+        return todoRepository.sortByInComplete();
     }
 
 }

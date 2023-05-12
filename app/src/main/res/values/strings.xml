@@ -17,6 +17,7 @@
     <string name="Search">Search</string>
     <string name="search_todo">Search todo</string>
     <string name="no_results_found">No results</string>
+    <string name="sortByTask">Sort by Tasks</string>
 
 
 </resources>

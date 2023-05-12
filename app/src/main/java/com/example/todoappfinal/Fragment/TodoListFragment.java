@@ -38,6 +38,7 @@ import com.example.todoappfinal.ViewModel.TodoViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TodoListFragment extends Fragment implements CardViewListener{
 
@@ -47,6 +48,8 @@ public class TodoListFragment extends Fragment implements CardViewListener{
     private FloatingActionButton addNewTodo;
 
     public TodoListAdapter adapter;
+
+    private boolean sortTask = false;
 
     private MainActivity mainActivity;
     
@@ -165,6 +168,28 @@ public class TodoListFragment extends Fragment implements CardViewListener{
                         intent.setData(Uri.parse("https://github.com/samratTBC/Todo-App-Final"));
                         startActivity(intent);
                         break;
+                    }
+                    case R.id.sortbycomplete:
+                    {
+                        if(!sortTask)
+                        {
+                            todoViewModel.sortByCompleted().observe(getViewLifecycleOwner(), todos -> {
+                                adapter = new TodoListAdapter(new ArrayList<>(todos), this, mainActivity, getRecyclerView());
+                                recyclerView.setAdapter(adapter);
+                                recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+                            });
+                            sortTask=!sortTask;
+                        }else
+                        {
+                            todoViewModel.sortByInCompleted().observe(getViewLifecycleOwner(), todos -> {
+                                if (todos != null) {
+                                    adapter = new TodoListAdapter(new ArrayList<>(todos), this, mainActivity, getRecyclerView());
+                                    recyclerView.setAdapter(adapter);
+                                    recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+                                }
+                            });
+                            sortTask=!sortTask;
+                        }
                     }
                     default:
                         return true;

@@ -15,7 +15,6 @@ public class TodoRepository {
     public TodoDao todoDao;
 
     public LiveData<List<Todo>> todoList;
-
     public TodoDao getTodoDao() {
         return todoDao;
     }
@@ -58,6 +57,13 @@ public class TodoRepository {
     public void deleteAll()
     {
         todoDao.deleteAll();
+    }
+
+    public LiveData<List<Todo>> sortByComplete(){
+        return todoDao.sortCompleted();
+    }
+    public LiveData<List<Todo>> sortByInComplete(){
+        return todoDao.sortByIncomplete();
     }
 
 

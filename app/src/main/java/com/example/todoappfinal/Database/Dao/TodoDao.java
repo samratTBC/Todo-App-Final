@@ -31,5 +31,11 @@ public interface TodoDao {
     @Delete
     void deleteTodo(Todo dao);
 
+    @Query("SELECT * FROM todo_table ORDER by is_complete DESC")
+    LiveData<List<Todo>> sortCompleted();
+
+    @Query("SELECT * FROM todo_table ORDER by is_complete ASC")
+    LiveData<List<Todo>> sortByIncomplete();
+
 
 }
