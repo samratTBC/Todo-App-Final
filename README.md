@@ -15,11 +15,13 @@ Model — View — ViewModel (MVVM) is the industry-recognized software architec
 # Architecture Followed: MVVM
 
 
+
+
 ## MVVM PICTORIAL DESCRIPTION:
 
 | MVVM Architecture  | app implemented |
 | ------------- | ------------- |
-| ![image](https://github.com/samratTBC/Todo-App-Final/assets/110808053/eac91f40-b0cf-40e2-b285-8b73e22bf620) |  ![pattern](https://github.com/samratTBC/Todo-App-Final/assets/110808053/1c4f18a7-9079-40a5-ae41-9eedd80834c3)|
+| ![pattern](https://github.com/samratTBC/Todo-App-Final/assets/110808053/2717f06a-4cbd-49ac-8531-9e423d566b33) |  ![image](https://github.com/samratTBC/Todo-App-Final/assets/110808053/4c28c836-d014-4655-8653-9630f6ad2147)|
 
 
 
@@ -52,16 +54,17 @@ An Observer is an interface that is used to receive updates from LiveData. It is
 
 
 
+
 # APP Working
 
 | Insert/Create  | Select/Unselect/Delete | Edit |
 | ------------- | ------------- | ------------- |
-| ![create](https://github.com/samratTBC/Todo-App-Final/assets/110808053/449f3dd3-7218-4426-ada2-c4a0db91ed9c) |  ![opt](https://github.com/samratTBC/Todo-App-Final/assets/110808053/4203926e-f523-4c70-8423-e76034841444)             | ![edit](https://github.com/samratTBC/Todo-App-Final/assets/110808053/8535a875-95c4-46f6-b284-3a5091c12e12)  |
+|![create](https://github.com/samratTBC/Todo-App-Final/assets/110808053/08d89ef6-c88b-497c-bb47-34df0cee3986)|![opt](https://github.com/samratTBC/Todo-App-Final/assets/110808053/7a56c8bb-5f49-410b-871e-00bdc3f8c309)|![edit](https://github.com/samratTBC/Todo-App-Final/assets/110808053/b31d95ad-cbd8-437b-955a-76befbe1689a)|
 
 
 | Search Feature  | Menu Options(Delete, Intent to web, Layout change | Sort By completion |
 | --------------- | ------------------------------------------------- |------------------- |
-| ![searchFeature](https://github.com/samratTBC/Todo-App-Final/assets/110808053/84444ed6-a478-438b-8832-90f4f1f73d46) | ![delete and menu options](https://github.com/samratTBC/Todo-App-Final/assets/110808053/c54370b2-a5e1-47cd-a89f-0ab03219c9d7)  | ![sort](https://github.com/samratTBC/Todo-App-Final/assets/110808053/93582372-5fca-4eea-8a83-96b060a7665b) |
+|![searchFeature](https://github.com/samratTBC/Todo-App-Final/assets/110808053/1cd142f1-4de7-4e1f-badf-357a47407d9e)|![delete and menu options](https://github.com/samratTBC/Todo-App-Final/assets/110808053/cb53ed90-1d74-4492-a196-596420d680a1)|![sort](https://github.com/samratTBC/Todo-App-Final/assets/110808053/94317713-7a5d-4770-85ca-d16b65ac0aba)|
 
 
 
